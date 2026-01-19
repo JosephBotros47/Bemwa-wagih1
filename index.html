@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bemwa Wagih | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Montserrat:wght@200;400;600&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #000; --text: #fff; --gray: #888; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
+        body.rtl { direction: rtl; font-family: 'Cairo', sans-serif; }
+
+        /* القمر */
+        .moon { position: fixed; top: 60px; right: 60px; width: 120px; height: 120px; background: #fdfdfd; border-radius: 50%; z-index: -1; box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.2), inset -20px -20px 50px rgba(0,0,0,0.5), 0 0 100px 20px rgba(255, 255, 255, 0.1); pointer-events: none; }
+        .moon::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle at 30% 30%, #ccc 5%, transparent 10%), radial-gradient(circle at 70% 60%, #bbb 8%, transparent 15%); opacity: 0.3; }
+
+        /* Navigation */
+        nav { position: fixed; top: 0; width: 100%; padding: 25px 5%; display: flex; justify-content: space-between; z-index: 1000; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); }
+        nav .logo { font-family: 'Syncopate'; font-weight: 700; letter-spacing: 2px; }
+        #lang-btn { background: #fff; color: #000; border: none; padding: 5px 15px; cursor: pointer; font-weight: bold; border-radius: 4px; margin-left: 20px; }
+
+        section { padding: 120px 5%; min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .visible { opacity: 1; transform: translateY(0); }
+
+        .hero-img { width: 320px; height: 450px; object-fit: cover; border-radius: 5px; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
+        .name-title { font-family: 'Syncopate'; font-size: clamp(1.5rem, 5vw, 3rem); margin-top: 25px; letter-spacing: 5px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; width: 100%; max-width: 1100px; text-align: center; border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 50px 0; margin: 40px 0; }
+        .stat-item h3 { font-size: 1.6rem; margin-bottom: 5px; }
+        .stat-item p { color: var(--gray); font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* Gallery Grid */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; }
+        .gallery-item { height: 450px; overflow: hidden; border-radius: 4px; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
+
+        /* Experience Images (الصور الملونة) */
+        .experience-images { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 40px; width: 100%; max-width: 1000px; }
+        .experience-images img { width: 100%; border-radius: 8px; transition: 0.4s; }
+        .experience-images img:hover { transform: translateY(-10px); }
+
+        /* Social Icons */
+        .social-icons { display: flex; gap: 30px; margin-top: 30px; }
+        .social-icons a { color: #fff; font-size: 2.5rem; transition: 0.4s; text-decoration: none; }
+        .social-icons a:hover { transform: scale(1.2); }
+        .fa-whatsapp:hover { color: #25D366; }
+        .fa-facebook:hover { color: #1877F2; }
+        .fa-instagram:hover { color: #E4405F; }
+
+        @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .stats-grid, .experience-images { grid-template-columns: 1fr; } .moon { width: 70px; height: 70px; } }
+    </style>
+</head>
+<body>
+
+    <div class="moon"></div>
+
+    <nav>
+        <div class="logo">BEMWA.W</div>
+        <div class="nav-right">
+            <button id="lang-btn">العربية</button>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <img src="0.jpg" alt="Bemwa" class="hero-img">
+        <h1 class="name-title">Bemwa Wagih</h1>
+    </section>
+
+    <section id="stats">
+        <div class="stats-grid">
+            <div class="stat-item"><h3>180</h3><p class="lang-h">Height (cm)</p></div>
+            <div class="stat-item"><h3>75</h3><p class="lang-w">Weight (kg)</p></div>
+            <div class="stat-item"><h3 id="hair-val">Black</h3><p class="lang-hair">Hair Color</p></div>
+            <div class="stat-item"><h3 id="eye-val">Hazel</h3><p class="lang-eye">Eye Color</p></div>
+            <div class="stat-item"><h3 id="skin-val">White</h3><p class="lang-skin">Skin Tone</p></div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 style="font-family:'Syncopate'; margin-bottom:40px" class="lang-gal-title">Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="1.jpg"></div>
+            <div class="gallery-item"><img src="2.jpg"></div>
+            <div class="gallery-item"><img src="3.jpg"></div>
+            <div class="gallery-item"><img src="4.jpg"></div>
+            <div class="gallery-item"><img src="5.jpg"></div>
+            <div class="gallery-item"><img src="6.jpg"></div>
+            <div class="gallery-item"><img src="7.jpg"></div>
+            <div class="gallery-item"><img src="8.jpg"></div>
+            <div class="gallery-item"><img src="9.jpg"></div>
+            <div class="gallery-item"><img src="10.jpg"></div>   
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 style="font-family:'Syncopate'; margin-bottom:30px" class="lang-exp-title">Experience</h2>
+        <p id="exp-text" style="text-align:center; max-width:800px; font-size:1.5rem; font-weight:200; line-height:1.6; margin-bottom: 20px;">
+            "Hi, I'm <strong>Bemwa Wagih</strong>. With over 2 years of experience in fashion, I blend creativity with style to bring unique visions to life. Let's create something amazing together! 💼"
+        </p>
+        <p id="work-title" style="font-family: 'Syncopate'; font-size: 0.8rem; margin-bottom: 25px; color: var(--gray);">I present to you my latest works</p>
+        
+        <div class="experience-images">
+            <img src="16.jpeg" alt="Work Red">
+            <img src="17.jpeg" alt="Work Green">
+            <img src="18.jpeg" alt="Work Blue">
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 style="font-family:'Syncopate';" class="lang-cont-title">Contact Me</h2>
+        <div class="social-icons">
+            <a href="https://wa.me/201275529550" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/b_e_m_w_a/?__pwa=1" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/share/1Fgi7QQ4gb/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        </div>
+        <p style="margin-top: 40px; font-size: 1rem; color: var(--gray);">+201275529550</p>
+    </section>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const moon = document.querySelector('.moon');
+            const x = (window.innerWidth - e.pageX * 2) / 90;
+            const y = (window.innerHeight - e.pageY * 2) / 90;
+            moon.style.transform = `translate(${x}px, ${y}px)`;
+        });
+
+        const btn = document.getElementById('lang-btn');
+        const expText = document.getElementById('exp-text');
+        const workTitle = document.getElementById('work-title');
+        let isArabic = false;
+
+        btn.addEventListener('click', () => {
+            isArabic = !isArabic;
+            document.body.classList.toggle('rtl');
+            if(isArabic) {
+                btn.innerText = "English";
+                expText.innerHTML = `"أهلاً، أنا <strong>بموا وجيه</strong>. بقالي أكتر من سنتين في مجال الفاشون، بحاول أمزج بين الإبداع والستايل عشان أحول أي رؤية فنية لواقع ملموس. ياللا بينا نعمل شغل كويس مع بعض! 💼"`;
+                workTitle.innerText = "بقدم لكم آخر أعمالي";
+                document.getElementById('hair-val').innerText = "إسود";
+                document.getElementById('eye-val').innerText = "عسلي";
+                document.getElementById('skin-val').innerText = "بيضاء";
+                document.querySelector('.lang-h').innerText = "الطول (سم)";
+                document.querySelector('.lang-w').innerText = "الوزن (كجم)";
+                document.querySelector('.lang-hair').innerText = "لون الشعر";
+                document.querySelector('.lang-eye').innerText = "لون العين";
+                document.querySelector('.lang-skin').innerText = "لون البشرة";
+                document.querySelector('.lang-gal-title').innerText = "صوري";
+                document.querySelector('.lang-exp-title').innerText = "الخبرة";
+                document.querySelector('.lang-cont-title').innerText = "تواصل معايا";
+            } else {
+                btn.innerText = "العربية";
+                expText.innerHTML = `"Hi, I'm <strong>Bemwa Wagih</strong>. With over 2 years of experience in fashion, I blend creativity with style to bring unique visions to life. Let's create something amazing together! 💼"`;
+                workTitle.innerText = "I present to you my latest works";
+                document.getElementById('hair-val').innerText = "Black";
+                document.getElementById('eye-val').innerText = "Hazel";
+                document.getElementById('skin-val').innerText = "White";
+                document.querySelector('.lang-h').innerText = "Height (cm)";
+                document.querySelector('.lang-w').innerText = "Weight (kg)";
+                document.querySelector('.lang-hair').innerText = "Hair Color";
+                document.querySelector('.lang-eye').innerText = "Eye Color";
+                document.querySelector('.lang-skin').innerText = "Skin Tone";
+                document.querySelector('.lang-gal-title').innerText = "Gallery";
+                document.querySelector('.lang-exp-title').innerText = "Experience";
+                document.querySelector('.lang-cont-title').innerText = "Contact with Me";
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+        document.getElementById('hero').classList.add('visible');
+    </script>
+</body>
+</html>
